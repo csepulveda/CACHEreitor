@@ -16,9 +16,9 @@ app.use express.static "#{__dirname}/public"
 app.get '/', (req, res) ->
   res.render 'index'
 
-app.post '/varnish', (req, res) ->
+app.post '/cloudflare', (req, res) ->
   request.post 'https://www.cloudflare.com/api_json.html',
-    form: 
+    form:
       a: 'fpurge_ts'
       tkn: process.env.TKN
       email: process.env.EMAIL
@@ -28,7 +28,36 @@ app.post '/varnish', (req, res) ->
       console.log body
       response
   res.redirect '/'
-
+app.post '/playfm', (req, res) ->
+  request.post "http://playfm.cl/#{process.env.VARNISH}",
+    (error, response, body) ->
+      console.log body
+      response
+  res.redirect '/'
+app.post '/sonar', (req, res) ->
+  request.post "http://sonarfm.cl/#{process.env.VARNISH}",
+    (error, response, body) ->
+      console.log body
+      response
+  res.redirect '/'
+app.post '/top', (req, res) ->
+  request.post "http://topfm.cl/#{process.env.VARNISH}",
+    (error, response, body) ->
+      console.log body
+      response
+  res.redirect '/'
+app.post '/oasis', (req, res) ->
+  request.post "http://oasisfm.cl/#{process.env.VARNISH}",
+    (error, response, body) ->
+      console.log body
+      response
+  res.redirect '/'
+app.post '/horizonte', (req, res) ->
+  request.post "http://horizonte.cl/#{process.env.VARNISH}",
+    (error, response, body) ->
+      console.log body
+      response
+  res.redirect '/'
 # App
 # ----------
 IP = process.env.IP or '127.0.0.1'
